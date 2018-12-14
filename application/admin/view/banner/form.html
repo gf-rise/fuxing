@@ -1,0 +1,60 @@
+<form autocomplete="off" class="layui-form layui-box modal-form-box" action="{:request()->url()}" data-auto="true"
+      method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input name="sort" value='{$vo.sort|default="0"}' type="number" title="數值越小越靠前" placeholder="數值越小越靠前"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">標題</label>
+        <div class="layui-input-block">
+            <input name="title" value='{$vo.title|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">圖片</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="img" value="{$vo.img|default=''}" required="required">
+            <script>$('[name=img]').uploadOneImage()</script>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">鏈結</label>
+        <div class="layui-input-block">
+            <input name="url" value='{$vo.url|default="#"}' title="請輸入跳轉的URL" placeholder="請輸入跳轉的URL"
+                   class="layui-input">
+        </div>
+    </div>
+
+
+    {if isset($authorizes)}
+    <div class="layui-form-item">
+        <label class="layui-form-label">访问授权</label>
+        <div class="layui-input-block">
+            {foreach $authorizes as $authorize}
+            <label class="think-checkbox">
+                <!--{if in_array($authorize['id'],$vo['authorize'])}-->
+                <input type="checkbox" checked name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{else}-->
+                <input type="checkbox" name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{/if}-->
+            </label>
+            {/foreach}
+            {if empty($authorizes)}<span class="color-desc" style="line-height:36px">未配置权限</span>{/if}
+        </div>
+    </div>
+    {/if}
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        {if isset($vo['id'])}<input type='hidden' value='{$vo.id}' name='id'>{/if}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
