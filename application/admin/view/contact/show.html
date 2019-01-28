@@ -1,0 +1,22 @@
+{extend name='admin@public/content'}
+{block name="button"}
+<button onclick="javascript:window.history.back()" class='layui-btn layui-btn-sm layui-btn-primary'>
+    <i class="fa fa-angle-left"></i>
+    返回
+</button>
+{/block}
+{block name="content"}
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h1>{$vo.title}</h1>
+
+    </div>
+
+    <div class="layui-card-body">
+        <h3><img src="{$vo.img}"> </h3>
+        <h5>發佈時間：{$vo.create_time|format_date}</h5>
+        <h5>最後更新：{$vo.update_time|format_date}</h5>
+        {$vo.content|raw}
+    </div>
+</div>
+{/block}

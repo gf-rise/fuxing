@@ -1,0 +1,172 @@
+{extend name="admin@public/content"}
+{block name="button"}
+<button onclick="javascript:window.history.back()" class='layui-btn layui-btn-sm layui-btn-primary'>
+    <i class="fa fa-angle-left"></i>
+    返回
+</button>
+{/block}
+{block name='content'}
+<form autocomplete="off" class="layui-form layui-box modal-form-box" action="{:request()->url()}" data-auto="true"
+      method="post">
+
+    <!--{if !empty($cates)}-->
+    <div class="form-group">
+        <label class="col-sm-2 control-label">商品分类</label>
+        <div class='col-sm-8 text-top'>
+            <select required class="layui-select full-width" name="cate_id">
+                {foreach $cates as $cate}
+                <!--{if isset($vo.cate_id) and $cate.id eq $vo.cate_id}-->
+                <option selected value="{$cate.id}">{$cate.spl|raw}{$cate.cate_title}</option>
+                <!--{else}-->
+                <option value="{$cate.id}">{$cate.spl|raw}{$cate.cate_title}</option>
+                <!--{/if}-->
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <!--{/if}-->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input name="sort" value='{$vo.sort|default="0"}' type="number" title="數值越小越靠前" placeholder="數值越小越靠前"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">職位</label>
+        <div class="layui-input-block">
+            <input name="position_name" value='{$vo.position_name|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">啟動時間</label>
+        <div class="layui-input-block">
+            <input type="text" name="start_time" value='{$vo.start_time|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">需求人數</label>
+        <div class='layui-input-block'>
+            <input type="number" class="layui-input" name="people_number" placeholder="请输入展示描述" value="{$vo.people_number|default=''}"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">薪資</label>
+        <div class='layui-input-block'>
+            <input type="text" class="layui-input" name="salary" placeholder="请输入展示描述" value="{$vo.salary|default=''}"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">工作內容</label>
+        <div class='layui-input-block'>
+            <textarea class="layui-input" name="work_content" placeholder="请输入展示描述">{$vo.work_content|default=''}</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">工作條件</label>
+        <div class='layui-input-block'>
+            <textarea class="layui-input" name="work_conditions" placeholder="请输入展示描述">{$vo.work_conditions|default=''}</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">技能需求</label>
+        <div class='layui-input-block'>
+            <textarea class="layui-input" name="requirements" placeholder="请输入展示描述">{$vo.requirements|default=''}</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">應徵方式</label>
+        <div class='layui-input-block'>
+            <textarea class="layui-input" name="apply" placeholder="请输入展示描述">{$vo.apply|default=''}</textarea>
+        </div>
+    </div>
+
+    {if isset($authorizes)}
+    <div class="layui-form-item">
+        <label class="layui-form-label">访问授权</label>
+        <div class="layui-input-block">
+            {foreach $authorizes as $authorize}
+            <label class="think-checkbox">
+                <!--{if in_array($authorize['id'],$vo['authorize'])}-->
+                <input type="checkbox" checked name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{else}-->
+                <input type="checkbox" name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{/if}-->
+            </label>
+            {/foreach}
+            {if empty($authorizes)}<span class="color-desc" style="line-height:36px">未配置权限</span>{/if}
+        </div>
+    </div>
+    {/if}
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        {if isset($vo['id'])}<input type='hidden' value='{$vo.id}' name='id'>{/if}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
+
+<script>
+
+    require(['ckeditor'], function () {
+        window.form.render();
+        window.createEditor('[name="work_content"]', {
+            height: 200,
+            language: 'zh-TW',
+            toolbar: [
+                ['Source', '-'],
+                ['Bold', 'Italic', 'Underline', 'Strike'],
+                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                ['NumberedList', 'BulletedList'],
+            ]
+        });
+        window.createEditor('[name="work_conditions"]', {
+            height: 200,
+            language: 'zh-TW',
+            toolbar: [
+                ['Source', '-'],
+                ['Bold', 'Italic', 'Underline', 'Strike'],
+                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                ['NumberedList', 'BulletedList'],
+            ]
+        });
+        window.createEditor('[name="requirements"]', {
+            height: 200,
+            language: 'zh-TW',
+            toolbar: [
+                ['Source', '-'],
+                ['Bold', 'Italic', 'Underline', 'Strike'],
+                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                ['NumberedList', 'BulletedList'],
+            ]
+        })
+        window.createEditor('[name="apply"]', {
+            height: 200,
+            language: 'zh-TW',
+            toolbar: [
+                ['Source', '-'],
+                ['Bold', 'Italic', 'Underline', 'Strike'],
+                ['Link','Unlink'],
+                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                ['NumberedList', 'BulletedList'],
+            ]
+        })
+
+        window.laydate.render({range: false, elem: '[name=start_time]'});
+    })
+
+</script>
+
+{/block}

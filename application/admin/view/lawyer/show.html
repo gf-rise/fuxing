@@ -1,0 +1,64 @@
+{extend name='admin@public/content'}
+{block name="button"}
+<button onclick="javascript:window.history.back()" class='layui-btn layui-btn-sm layui-btn-primary'>
+    <i class="fa fa-angle-left"></i>
+    返回
+</button>
+{/block}
+{block name="content"}
+<div class="layui-card">
+    <div class="layui-card-header">
+        <div class="pull-left"><span><i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;{$vo.lawyer_name}</span></div>
+        <div class="pull-right margin-right-15 nowrap">{$vo.lawyer_name_en}</div>
+    </div>
+
+    <div class="layui-card-body">
+        <span class="layui-show-md-block">
+            <img src="{$vo.photo}" class="layui-circle"/>
+        </span>
+        <h4>{$vo.position}</h4>
+        <h5>發佈時間：{$vo.create_time|format_date}</h5>
+        <h5>最後更新：{$vo.update_time|format_date}</h5>
+        <div class="layui-card">
+            <div class="layui-card-header">
+                學歷
+            </div>
+            <div class="layui-card-body">
+                {$vo.education|raw}
+            </div>
+        </div>
+        <div class="layui-card">
+            <div class="layui-card-header">
+                經曆
+            </div>
+            <div class="layui-card-body">
+                {$vo.experience|raw}
+            </div>
+        </div>
+        <div class="layui-card">
+            <div class="layui-card-header">
+                代表性客戶
+            </div>
+            <div class="layui-card-body">
+                {$vo.customer|raw}
+            </div>
+        </div>
+        <div class="layui-card">
+            <div class="layui-card-header">
+                法律擅長
+            </div>
+            <div class="layui-card-body">
+                {$vo.be_good_at|raw}
+            </div>
+        </div>
+        <div class="layui-card">
+            <div class="layui-card-header">
+                自我簡介
+            </div>
+            <div class="layui-card-body">
+                {$vo.introduction|raw}
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

@@ -1,0 +1,40 @@
+{extend name='admin@public/content'}
+{block name="button"}
+<button onclick="javascript:window.history.back()" class='layui-btn layui-btn-sm layui-btn-primary'>
+    <i class="fa fa-angle-left"></i>
+    返回
+</button>
+{/block}
+{block name="content"}
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h1>職位：{$vo.position_name}</h1>
+    </div>
+
+    <div class="layui-card-body">
+        <h3>需求人數：{$vo.people_number}</h3>
+        <h5>開始時間：{$vo.start_time}</h5>
+        <h5>薪資：{$vo.salary}</h5>
+        <div>
+            <h3>工作內容</h3>
+            <hr/>
+            {$vo.work_content|raw}
+        </div>
+        <div>
+            <h3>工作條件</h3>
+            <hr/>
+            {$vo.work_conditions|raw}
+        </div>
+        <div>
+            <h3>技能需求</h3>
+            <hr/>
+            {$vo.requirements|raw}
+        </div>
+        <div>
+            <h3>應徵方式</h3>
+            <hr/>
+            {$vo.apply|raw}
+        </div>
+    </div>
+</div>
+{/block}

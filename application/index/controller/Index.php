@@ -14,18 +14,44 @@
 
 namespace app\index\controller;
 
-use think\Controller;
+
+use app\index\model\Contact;
+use app\index\model\About;
+use app\index\model\Banner;
+use app\index\model\Job;
+use app\index\model\News;
+use app\index\model\Services;
+use controller\BasicIndex;
+
 
 /**
  * 应用入口控制器
  * @author Anyon <zoujingli@qq.com>
  */
-class Index extends Controller
+class Index extends BasicIndex
 {
+
 
     public function index()
     {
+
+        $this->assign('config',$this->config);
+
+        $banner = Banner::where('status',1)->order('sort','asc')->select();
+        $services = Services::where('status',1)->order('sort','asc')->select();
+        $about = About::where('status',1)->limit(1)->find();
+        $news = News::where('status',1)->limit(8)->order('sort','asc')->select();
+        $job = Job::where('status',1)->limit(8)->order('sort','asc')->select();
+        $contact = Contact::where('status',1)->order('sort','asc')->select();
+        $this->assign(['banner'=>$banner,'services'=>$services,'about'=>$about,'news'=>$news,'job'=>$job,'contact'=>$contact]);
         return $this->fetch();
-//        $this->redirect('@admin/login');
+    }
+
+    public function main(){
+        $this->assign('config',$this->config);
+
+        $banner = Banner::where('status',1)->order('sort','asc')->select();
+        $this->assign('banner',$banner);
+        return $this->fetch();
     }
 }

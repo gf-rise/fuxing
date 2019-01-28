@@ -84,6 +84,7 @@ class BasicAdmin extends Controller
         $pk = empty($pkField) ? ($db->getPk() ? $db->getPk() : 'id') : $pkField;
         $pkValue = $this->request->request($pk);
         $vo = $db->where($pk, $pkValue)->find();
+        empty($this->title) || $this->assign('title', $this->title);
         return $this->fetch($tplFile, ['vo' => $vo]);
     }
 

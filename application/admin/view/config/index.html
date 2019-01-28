@@ -1,14 +1,16 @@
 {extend name="admin@public/content"}
 
 {block name="content"}
-<form autocomplete="off" onsubmit="return false;" action="{:request()->url()}" data-auto="true" method="post" class='form-horizontal layui-form padding-top-20'>
+<form autocomplete="off" onsubmit="return false;" action="{:request()->url()}" data-auto="true" method="post"
+      class='form-horizontal layui-form padding-top-20'>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">
             AppName<br><span class="nowrap color-desc">程序名称</span>
         </label>
         <div class='col-sm-8'>
-            <input name="app_name" required="required" title="请输入程序名称" placeholder="请输入程序名称" value="{:sysconf('app_name')}" class="layui-input">
+            <input name="app_name" required="required" title="請輸入程序名称" placeholder="請輸入程序名称"
+                   value="{:sysconf('app_name')}" class="layui-input">
             <p class="help-block">当前程序名称，在后台主标题上显示</p>
         </div>
     </div>
@@ -18,7 +20,8 @@
             AppVersion<br><span class="nowrap color-desc">程序版本</span>
         </label>
         <div class='col-sm-8'>
-            <input name="app_version" required="required" title="请输入程序版本" placeholder="请输入程序版本" value="{:sysconf('app_version')}" class="layui-input">
+            <input name="app_version" required="required" title="請輸入程序版本" placeholder="請輸入程序版本"
+                   value="{:sysconf('app_version')}" class="layui-input">
             <p class="help-block">当前程序版本号，在后台主标题上标显示</p>
         </div>
     </div>
@@ -30,17 +33,28 @@
             SiteName<br><span class="nowrap color-desc">网站名称</span>
         </label>
         <div class='col-sm-8'>
-            <input name="site_name" required="required" title="请输入网站名称" placeholder="请输入网站名称" value="{:sysconf('site_name')}" class="layui-input">
+            <input name="site_name" required="required" title="請輸入网站名称" placeholder="請輸入网站名称"
+                   value="{:sysconf('site_name')}" class="layui-input">
             <p class="help-block">网站名称，显示在浏览器标签上</p>
         </div>
     </div>
-
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            URL<br><span class="nowrap color-desc">URL地址</span>
+        </label>
+        <div class='col-sm-8'>
+            <input name="site_url"  title="請輸入程序名称" placeholder="請輸入程序名称"
+                   value="{:sysconf('site_url')}" class="layui-input">
+            <p class="help-block">網站主域名地址</p>
+        </div>
+    </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">
             Copyright<br><span class="nowrap color-desc">版权信息</span>
         </label>
         <div class='col-sm-8'>
-            <input name="site_copy" required="required" title="请输入版权信息" placeholder="请输入版权信息" value="{:sysconf('site_copy')}" class="layui-input">
+            <input name="site_copy" required="required" title="請輸入版权信息" placeholder="請輸入版权信息"
+                   value="{:sysconf('site_copy')}" class="layui-input">
             <p class="help-block">程序的版权信息设置，在后台登录页面显示</p>
         </div>
     </div>
@@ -53,18 +67,108 @@
         </label>
         <div class='col-sm-8'>
             <img data-tips-image style="height:auto;max-height:32px;min-width:32px" src="{:sysconf('browser_icon')}"/>
-            <input type="hidden" name="browser_icon" onchange="$(this).prev('img').attr('src', this.value)" value="{:sysconf('browser_icon')}" class="layui-input">
+            <input type="hidden" name="browser_icon" onchange="$(this).prev('img').attr('src', this.value)"
+                   value="{:sysconf('browser_icon')}" class="layui-input">
             <a class="btn btn-link" data-file="one" data-uptype="local" data-type="ico,png" data-field="browser_icon">上传图片</a>
-            <p class="help-block">建议上传ICO图标的尺寸为128x128px，此图标用于网站标题前，<a href="http://www.favicon-icon-generator.com/" target="_blank">ICON在线制作</a></p>
+            <p class="help-block">建议上传ICO图标的尺寸为128x128px，此图标用于网站标题前，<a href="http://www.favicon-icon-generator.com/"
+                                                                       target="_blank">ICON在线制作</a></p>
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            SiteLogo<br><span class="nowrap color-desc">網站LOGO</span>
+        </label>
+        <div class='col-sm-8'>
+            <img data-tips-image style="height:auto;max-height:32px;min-width:32px" src="{:sysconf('site_logo')}"/>
+            <input type="hidden" name="site_logo" onchange="$(this).prev('img').attr('src', this.value)"
+                   value="{:sysconf('site_logo')}" class="layui-input">
+            <a class="btn btn-link" data-file="one" data-uptype="local" data-type="ico,png"
+               data-field="site_logo">上传图片</a>
+            <p class="help-block">建议上传ICO图标的尺寸为128x128px，此图标用于网站标题前，</p>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Keywords<br><span class="nowrap color-desc">SEO關鍵字</span>
+        </label>
+        <div class='col-sm-8'>
+            <input name="keywords" title="請輸入程序名称" placeholder="請輸入SEO關鍵字" value="{:sysconf('keywords')}"
+                   class="layui-input">
+            <p class="help-block">当前程序名称，在后台主标题上显示</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Description<br><span class="nowrap color-desc">SEO描述</span>
+        </label>
+        <div class='col-sm-8'>
+            <textarea name="description" title="请輸入SEO描述" placeholder="请輸入SEO描述" class="layui-textarea">{:sysconf('description')}</textarea>
+            <p class="help-block">当前程序版本号，在后台主标题上标显示</p>
+        </div>
+    </div>
+    <div class="hr-line-dashed">聯繫方式</div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Tel<br><span class="nowrap color-desc">聯繫電話</span>
+        </label>
+        <div class='col-sm-8'>
+            <input name="tel" title="请輸入Email電郵地址" placeholder="请輸入Email電郵地址" class="layui-input"
+                   value="{:sysconf('tel')}">
+            <p class="help-block">当前程序版本号，在后台主标题上标显示</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Email<br><span class="nowrap color-desc">Email電郵地址</span>
+        </label>
+        <div class='col-sm-8'>
+            <input name="email" title="请輸入Email電郵地址" placeholder="请輸入Email電郵地址" class="layui-input"
+                   value="{:sysconf('email')}">
+            <p class="help-block">当前程序版本号，在后台主标题上标显示</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Line<br><span class="nowrap color-desc">Line</span>
+        </label>
+        <div class='col-sm-8'>
+            <input name="line" title="请輸入Line" placeholder="请輸入Line" class="layui-input" value="{:sysconf('line')}"/>
+            <p class="help-block">当前程序版本号，在后台主标题上标显示</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Facebook<br><span class="nowrap color-desc">Facebook專頁地址</span>
+        </label>
+        <div class='col-sm-8'>
+            <input name="facebook" title="请輸入Facebook專頁網域地址" placeholder="请輸入Facebook專頁網域地址" class="layui-input"
+                   value="{:sysconf('facebook')}">
+            <p class="help-block">当前程序版本号，在后台主标题上标显示</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Google Map<br><span class="nowrap color-desc">Google地圖</span>
+        </label>
+        <div class='col-sm-8'>
+            <input name="google_map" title="请輸入Google_Map地址" placeholder="请輸入Google_Map地址" class="layui-input"
+                   value="{:sysconf('google_map')}">
+            <p class="help-block">輸入GOOGLE MAP 的地址前綴</p>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">
             Miitbeian<br><span class="nowrap color-desc">网站备案</span>
         </label>
         <div class='col-sm-8'>
-            <input name="miitbeian" title="请输入网站备案号" placeholder="请输入网站备案号" value="{:sysconf('miitbeian')}" class="layui-input">
+            <input name="miitbeian" title="請輸入网站备案号" placeholder="請輸入网站备案号" value="{:sysconf('miitbeian')}"
+                   class="layui-input">
             <p class="help-block">网站备案号，可以在<a target="_blank" href="http://www.miitbeian.gov.cn">备案管理中心</a>查询获取</p>
         </div>
     </div>

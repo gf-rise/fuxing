@@ -12,7 +12,7 @@
 // | github开源项目：https://github.com/zoujingli/ThinkService
 // +--------------------------------------------------------------------*/
 
-html{overflow:auto}body{width:100%;font-size:12px;font-family:'微软雅黑','Microsoft YaHei','Helvetica Neue','Luxi Sans','DejaVu Sans','Hiragino Sans GB',serif}
+html{overflow:auto}body{width:100%;font-size:14px;font-family:'微软雅黑','Microsoft YaHei','Helvetica Neue','Luxi Sans','DejaVu Sans','Hiragino Sans GB',serif}
 a{color:#06C;cursor:pointer}a:hover{color:#039}input::-ms-clear{display:none}button{border-radius:0!important}
 .text-left{text-align:left!important}.text-right{text-align:right!important}.text-center{text-align:center!important}.text-top{vertical-align:top!important}
 .color-desc{color:#999!important}.color-text{color:#333!important}.color-blue{color:#2494f2!important}.color-red{color:#ec494e!important}.color-green{color:#090!important}

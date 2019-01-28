@@ -1,0 +1,162 @@
+{extend name="admin@public/content"}
+{block name="button"}
+<button onclick="javascript:window.history.back()" class='layui-btn layui-btn-sm layui-btn-primary'>
+    <i class="fa fa-angle-left"></i>
+    返回
+</button>
+{/block}
+{block name="content"}
+<form autocomplete="off" class="layui-form layui-box modal-form-box" action="{:request()->url()}" data-auto="true"
+      method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input name="sort" value='{$vo.sort|default="0"}' type="number" title="數值越小越靠前" placeholder="數值越小越靠前"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">律師名稱</label>
+        <div class="layui-input-block">
+            <input name="lawyer_name" value='{$vo.lawyer_name|default=""}' title="請輸入律師中文名稱" placeholder="請輸入律師中文名稱"
+                   class="layui-input" required="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">英文名稱</label>
+        <div class="layui-input-block">
+            <input name="lawyer_name_en" value='{$vo.lawyer_name_en|default=""}' title="請輸入律師英文名稱"
+                   placeholder="請輸入律師英文名稱"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">律師相片</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="photo" value="{$vo.photo|default=''}">
+            <script>$('[name=photo]').uploadOneImage()</script>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">學歷</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="education" placeholder="请输入學歷">{$vo.education|default=''}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">經歷</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="experience"
+                      placeholder="请输入經歷">{$vo.experience|default=''}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">代表性客戶</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="customer" placeholder="请输入代表性客戶">{$vo.customer|default=''}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">自我介紹</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="introduction"
+                      placeholder="请输入律師自我簡介">{$vo.introduction|default=''}</textarea>
+        </div>
+    </div>
+
+
+    {if isset($authorizes)}
+    <div class="layui-form-item">
+        <label class="layui-form-label">访问授权</label>
+        <div class="layui-input-block">
+            {foreach $authorizes as $authorize}
+            <label class="think-checkbox">
+                <!--{if in_array($authorize['id'],$vo['authorize'])}-->
+                <input type="checkbox" checked name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{else}-->
+                <input type="checkbox" name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{/if}-->
+            </label>
+            {/foreach}
+            {if empty($authorizes)}<span class="color-desc" style="line-height:36px">未配置权限</span>{/if}
+        </div>
+    </div>
+    {/if}
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        {if isset($vo['id'])}<input type='hidden' value='{$vo.id}' name='id'>{/if}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
+<script>
+    require(['ckeditor'], function () {
+        window.form.render();
+        window.createEditor('[name="education"]', {
+            height: 200,
+            language:'zh-TW',
+            toolbar:[
+                [ 'Source', '-'],
+                [ 'Bold', 'Italic', 'Underline','Strike'],
+                ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                ['NumberedList', 'BulletedList'],
+            ]
+        });
+        window.createEditor('[name="experience"]', {
+            height: 200,
+            language:'zh-TW',
+            toolbar:[
+                [ 'Source', '-'],
+                [ 'Bold', 'Italic', 'Underline','Strike'],
+                ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                ['NumberedList', 'BulletedList'],
+            ]
+        });
+        window.createEditor('[name="customer"]', {
+            height: 200,
+            language: 'zh-TW',
+            toolbar: [
+                [ 'Source', '-'],
+                [ 'Bold', 'Italic', 'Underline','Strike'],
+                ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                ['NumberedList', 'BulletedList'],
+            ]
+        })
+        window.createEditor('[name="introduction"]', {
+                height: 500,
+                language:'zh-TW',
+                toolbar:[
+                    [ 'Source', '-'],
+                    [ 'Bold', 'Italic', 'Underline','Strike'],
+                    ['FontSize'],
+                    ['TextColor','BGColor'],
+                    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                    ['Image','HorizontalRule','NumberedList', 'BulletedList'],
+                    // //加粗     斜体，     下划线      穿过线      下标字        上标字
+                    // ['Bold','Italic','Underline','Strike','Subscript','Superscript'],
+                    // // 数字列表          实体列表            减小缩进    增大缩进
+                    // ['NumberedList','BulletedList','-','Outdent','Indent'],
+                    // //左对 齐             居中对齐          右对齐          两端对齐
+                    // ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                    // //超链接  取消超链接 锚点
+                    // ['Link','Unlink','Anchor'],
+                    // //图片    flash    表格       水平线            表情       特殊字符        分页符
+                    // ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+                    // '/',
+                    // // 样式       格式      字体    字体大小
+                    // ['Styles','Format','Font','FontSize'],
+                    // //文本颜色     背景颜色
+                    // ['TextColor','BGColor'],
+                    // //全屏           显示区块
+                    // ['Maximize', 'ShowBlocks','-']
+                ],
+            }
+        );
+    })
+</script>
+
+{/block}

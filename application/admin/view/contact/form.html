@@ -1,0 +1,134 @@
+{extend name="admin@public/content"}
+{block name="button"}
+<button onclick="javascript:window.history.back()" class='layui-btn layui-btn-sm layui-btn-primary'>
+    <i class="fa fa-angle-left"></i>
+    返回
+</button>
+{/block}
+{block name='content'}
+<form autocomplete="off" class="layui-form layui-box modal-form-box" action="{:request()->url()}" data-auto="true"
+      method="post">
+
+    <!--{if !empty($cates)}-->
+    <div class="form-group">
+        <label class="col-sm-2 control-label">商品分类</label>
+        <div class='col-sm-8 text-top'>
+            <select required class="layui-select full-width" name="cate_id">
+                {foreach $cates as $cate}
+                <!--{if isset($vo.cate_id) and $cate.id eq $vo.cate_id}-->
+                <option selected value="{$cate.id}">{$cate.spl|raw}{$cate.cate_title}</option>
+                <!--{else}-->
+                <option value="{$cate.id}">{$cate.spl|raw}{$cate.cate_title}</option>
+                <!--{/if}-->
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <!--{/if}-->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input name="sort" value='{$vo.sort|default="0"}' type="number" title="數值越小越靠前" placeholder="數值越小越靠前"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所在地址</label>
+        <div class="layui-input-block">
+            <input name="address" value='{$vo.address|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">門頭圖片</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="img" value="{$vo.img|default=''}" required="required">
+            <script>$('[name=img]').uploadOneImage()</script>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">聯絡電話</label>
+        <div class="layui-input-block">
+            <input name="phone" value='{$vo.phone|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">聯絡傳真</label>
+        <div class="layui-input-block">
+            <input name="fax" value='{$vo.fax|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">聯絡電郵</label>
+        <div class="layui-input-block">
+            <input name="email" value='{$vo.email|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">營業時間</label>
+        <div class="layui-input-block">
+            <input name="business_hours" value='{$vo.business_hours|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">Google地址</label>
+        <div class='layui-input-block'>
+            <input class="layui-input" name="google_map" placeholder="请输入展示描述" title="请输入用户名称" value="{$vo.google_map|default=''|urldecode}"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否啟用</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="status" lay-skin="switch"  lay-text="ON|OFF" {if (isset($vo.status)&&$vo.status == 1)}
+                   checked="checked"
+                   {/if}
+            value={$vo.status|default=0}
+            />
+        </div>
+    </div>
+
+
+    {if isset($authorizes)}
+    <div class="layui-form-item">
+        <label class="layui-form-label">访问授权</label>
+        <div class="layui-input-block">
+            {foreach $authorizes as $authorize}
+            <label class="think-checkbox">
+                <!--{if in_array($authorize['id'],$vo['authorize'])}-->
+                <input type="checkbox" checked name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{else}-->
+                <input type="checkbox" name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{/if}-->
+            </label>
+            {/foreach}
+            {if empty($authorizes)}<span class="color-desc" style="line-height:36px">未配置权限</span>{/if}
+        </div>
+    </div>
+    {/if}
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        {if isset($vo['id'])}<input type='hidden' value='{$vo.id}' name='id'>{/if}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
+<script>
+    window.form.render();
+    window.form.on('switch',function(data){
+        $(data.elem).attr('type', 'hidden').val(this.checked ? 1 : 0);
+    })
+</script>
+
+
+{/block}

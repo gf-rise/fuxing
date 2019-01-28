@@ -1,0 +1,86 @@
+{extend name="admin@public/content"}
+{block name="button"}
+<button onclick="javascript:window.history.back()" class='layui-btn layui-btn-sm layui-btn-primary'>
+    <i class="fa fa-angle-left"></i>
+    返回
+</button>
+{/block}
+{block name='content'}
+<form autocomplete="off" class="layui-form layui-box modal-form-box" action="{:request()->url()}" data-auto="true"
+      method="post">
+
+    <!--{if !empty($cates)}-->
+    <div class="form-group">
+        <label class="col-sm-2 control-label">商品分类</label>
+        <div class='col-sm-8 text-top'>
+            <select required class="layui-select full-width" name="cate_id">
+                {foreach $cates as $cate}
+                <!--{if isset($vo.cate_id) and $cate.id eq $vo.cate_id}-->
+                <option selected value="{$cate.id}">{$cate.spl|raw}{$cate.cate_title}</option>
+                <!--{else}-->
+                <option value="{$cate.id}">{$cate.spl|raw}{$cate.cate_title}</option>
+                <!--{/if}-->
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <!--{/if}-->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input name="sort" value='{$vo.sort|default="0"}' type="number" title="數值越小越靠前" placeholder="數值越小越靠前"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">標題</label>
+        <div class="layui-input-block">
+            <input name="title" value='{$vo.title|default=""}' title="请输入用户名称" placeholder="请输入4位及以上字符用户名称"
+                   class="layui-input">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">描述</label>
+        <div class='layui-input-block'>
+            <textarea class="layui-textarea" name="content" placeholder="请输入展示描述">{$vo.content|default=''}</textarea>
+        </div>
+    </div>
+
+
+    {if isset($authorizes)}
+    <div class="layui-form-item">
+        <label class="layui-form-label">访问授权</label>
+        <div class="layui-input-block">
+            {foreach $authorizes as $authorize}
+            <label class="think-checkbox">
+                <!--{if in_array($authorize['id'],$vo['authorize'])}-->
+                <input type="checkbox" checked name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{else}-->
+                <input type="checkbox" name="authorize[]" value="{$authorize.id}" lay-ignore> {$authorize.title}
+                <!--{/if}-->
+            </label>
+            {/foreach}
+            {if empty($authorizes)}<span class="color-desc" style="line-height:36px">未配置权限</span>{/if}
+        </div>
+    </div>
+    {/if}
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        {if isset($vo['id'])}<input type='hidden' value='{$vo.id}' name='id'>{/if}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
+
+<script>
+    require(['jquery', 'ckeditor', 'angular'], function () {
+        window.createEditor('[name="content"]', {height: 500});
+    })
+</script>
+
+{/block}

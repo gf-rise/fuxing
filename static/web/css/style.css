@@ -3,6 +3,7 @@ body{
 	padding:0;
 	margin:0;
 	background:#FFF;
+    font-size: 14px;
 }
 body a{
     transition:0.5s all;
@@ -321,7 +322,7 @@ section.service-w3ls p.text-center {
 }
 section.service-w3ls h4 {
     font-size: 22px;
-    font-weight: normal;
+    font-weight: 700;
     color: #28B3B6;
     padding: 0 0 20px;
     text-transform: capitalize;
@@ -337,6 +338,8 @@ section.service-w3ls .col-xs-5.serv-agile2 {
 section.service-w3ls .col-xs-7.serv-agile1 {
     border: 1px solid #999;
     height: 263px;
+    height: 325px!important;
+    overflow: hidden;
     padding: 34px;
 }
 section.service-w3ls .carousel-indicators li {
@@ -409,7 +412,7 @@ section.divider h4#myModalLabel {
     text-transform: uppercase;
     color: #000;
 }
-section.divider p.banner-p1 {
+section.divider div.banner-p1 {
     font-size: 16px;
     text-align: justify;
     line-height: 30px;
@@ -666,6 +669,7 @@ section.test .test-w3ls {
     background-color: #F7F7F7;
     padding: 25px 30px;
     height: 200px;
+    overflow: hidden;
     position: relative;
 }
 section.test .test-w3ls:after {
@@ -1846,4 +1850,19 @@ ul.top-contacts li {
     margin-right:0px; 
     display: block;
 }
+}
+
+/*line*/
+
+i.fa svg {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+i.fa svg path{
+    fill:#000;
+}
+i.fa:hover svg path{
+    fill:#fff;
 }

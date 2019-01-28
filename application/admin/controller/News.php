@@ -52,6 +52,7 @@ class News extends BasicAdmin
     public function create()
     {
         //
+        $this->title='添加動態';
         return $this->_form($this->table, 'form');
     }
     public function edit()

@@ -302,6 +302,7 @@
             };
 
             $(this).on("click", function(e) {
+
                 e.preventDefault();
                 trigger = this;
                 src = $(this).attr('href');

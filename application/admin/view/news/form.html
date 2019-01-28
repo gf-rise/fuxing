@@ -1,4 +1,10 @@
-{extend name='admin@public/content'}
+{extend name="admin@public/content"}
+{block name="button"}
+<button onclick="javascript:window.history.back()" class='layui-btn layui-btn-sm layui-btn-primary'>
+    <i class="fa fa-angle-left"></i>
+    返回
+</button>
+{/block}
 {block name='content'}
 <form autocomplete="off" class="layui-form layui-box modal-form-box" action="{:request()->url()}" data-auto="true"
       method="post">
